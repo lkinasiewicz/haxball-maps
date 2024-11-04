@@ -19,7 +19,7 @@ const TEAM = {
 
 const powerShotRatio = {
   [TEAM.RED]: 1.8,
-  [TEAM.BLUE]: 1.8
+  [TEAM.BLUE]: 1.8,
 };
 
 let playerTouchTime = {};
@@ -97,7 +97,7 @@ room.onPlayerChat = function (player, message) {
     });
   }
   if (message.toLowerCase().startsWith("!power")) {
-    const [_, teamIdString, powerString] = message.split(',');
+    const [_, teamIdString, powerString] = message.split(",");
     const power = Number.parseFloat(powerString);
     const team = Number.parseInt(teamIdString);
     if (!Number.isNaN(power) && !Number.isNaN(team)) {
@@ -106,19 +106,10 @@ room.onPlayerChat = function (player, message) {
   }
 };
 
-// room.getPlayerList()
-// [] {
-//   "name": "n",
-//   "team": 1,
-//   "id": 1,
-//   "admin": true,
-//   "position": null
-// }
-
-let r = true;
+let _nextTeam = TEAM.RED;
 room.onPlayerJoin = function (player) {
   room.setPlayerAdmin(player.id, true);
-  room.setPlayerTeam(player.id, r ? 1 : 2);
+  room.setPlayerTeam(player.id, _nextTeam);
   console.log(player);
-  r = !r;
+  _nextTeam = _nextTeam === TEAM.RED ? TEAM.BLUE : TEAM.RED;
 };
