@@ -27,7 +27,7 @@ type Room = {
     textColor: number,
     colors: number[]
   ) => void;
-  setPlayerAvatar: (playerID: number, avatar: string) => void;
+  setPlayerAvatar: (playerID: number, avatar: string | null) => void;
   getPlayerAvatar: (playerID: number) => string | null;
   startGame: () => void;
   stopGame: () => void;

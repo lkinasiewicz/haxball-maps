@@ -58,8 +58,6 @@ function updateAvatars() {
       const a = Math.round((10 * playerTouchTime) / triggerTouchTime);
       room.setPlayerAvatar(+playerId, "." + a);
     } else {
-      // @ts-expect-error Argument of type 'null' is not assignable to parameter of type 'string'
-      // null restores player's previous avatar, this is undocumented
       room.setPlayerAvatar(+playerId, null);
     }
   });
