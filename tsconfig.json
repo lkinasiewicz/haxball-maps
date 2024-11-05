@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": false,
+    "target": "esnext"
+  },
+  "include": ["src/**/*"]
+}
