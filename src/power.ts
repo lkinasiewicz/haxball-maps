@@ -1,3 +1,5 @@
+import "./types/haxball-api.d";
+
 const room = HBInit({
   roomName: "Jeze",
   playerName: "",
@@ -22,7 +24,7 @@ const powerShotRatio = {
   [TEAM.BLUE]: 1.8,
 };
 
-let playerTouchTime = {};
+let playerTouchTime: Record<string, number> = {};
 
 function pointDistance(p1, p2) {
   const d1 = p1.x - p2.x;
