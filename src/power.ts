@@ -1,4 +1,5 @@
 import "./types/haxball-api.d";
+import { PlayerId } from "./types/haxball-api.d";
 
 const room = HBInit({
   roomName: "Jeze",
@@ -24,7 +25,7 @@ const powerShotRatio = {
   [TEAM.BLUE]: 1.8,
 };
 
-let playerTouchTime: Record<string, number> = {};
+let playerTouchTime: Record<PlayerId, number> = {};
 
 function pointDistance(p1, p2) {
   const d1 = p1.x - p2.x;
@@ -52,12 +53,14 @@ function saveTouchTime() {
 function updateAvatars() {
   Object.entries(playerTouchTime).forEach(([playerId, playerTouchTime]) => {
     if (playerTouchTime >= triggerTouchTime) {
-      room.setPlayerAvatar(playerId, "P");
+      room.setPlayerAvatar(+playerId, "P");
     } else if (playerTouchTime > 0) {
       const a = Math.round((10 * playerTouchTime) / triggerTouchTime);
-      room.setPlayerAvatar(playerId, "." + a);
+      room.setPlayerAvatar(+playerId, "." + a);
     } else {
-      room.setPlayerAvatar(playerId, null);
+      // @ts-expect-error Argument of type 'null' is not assignable to parameter of type 'string'
+      // null restores player's previous avatar, this is undocumented
+      room.setPlayerAvatar(+playerId, null);
     }
   });
 }
@@ -72,8 +75,8 @@ room.onPlayerBallKick = function (player) {
   if (powerActive) {
     const ps = powerShotRatio[player.team];
     room.setDiscProperties(0, {
-      xspeed: ps * room.getDiscProperties(0).xspeed,
-      yspeed: ps * room.getDiscProperties(0).yspeed,
+      xspeed: ps * (room.getDiscProperties(0)?.xspeed ?? 0),
+      yspeed: ps * (room.getDiscProperties(0)?.yspeed ?? 0),
     });
     resetTouchTimes();
   }
