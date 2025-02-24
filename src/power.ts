@@ -79,6 +79,15 @@ export const powerPlugin: Plugin = room => {
         const team = Number.parseInt(teamIdString);
         if (!Number.isNaN(power) && !Number.isNaN(team)) {
           powerShotRatio[team] = power;
+          room.sendAnnouncement(
+            `Power of team ${team} set to ${power}`,
+            player.id
+          );
+        } else {
+          room.sendAnnouncement(
+            `Incorrect power settings, command syntax: !power,<team_id>,<power_value>`,
+            player.id
+          );
         }
       }
     },
