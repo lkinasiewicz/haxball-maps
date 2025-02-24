@@ -10,6 +10,13 @@ type RoomInit = {
 };
 
 type Room = {
+  sendAnnouncement(
+    message: string,
+    targetId?: number,
+    color?: number,
+    style?: string,
+    sound?: number
+  );
   sendChat: (message: string, targetId?: number) => void;
   setPlayerAdmin: (playerID: number, admin: boolean) => void;
   setPlayerTeam: (playerID: number, team: number) => void;
