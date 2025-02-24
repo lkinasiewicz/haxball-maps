@@ -7,7 +7,7 @@ const room = HBInit({
   noPlayer: true,
   public: false,
   maxPlayers: 12,
-  token: process.env.HEADLESS_TOKEN
+  token: process?.env?.HEADLESS_TOKEN
 });
 
 const ballRadius = 10;
