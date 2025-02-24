@@ -10,8 +10,8 @@ const compiledBot = buildSync({
   format: "iife",
   write: false,
   define: {
-    'process.env.HEADLESS_TOKEN': token ? `"${token}"` : ''
-  }
+    ...(token ? { "process.env.HEADLESS_TOKEN": `"${token}"` } : {}),
+  },
 }).outputFiles[0].text;
 
 const browser = await puppeteer.launch({
