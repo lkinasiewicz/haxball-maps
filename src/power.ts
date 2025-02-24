@@ -95,10 +95,12 @@ room.onGameTick = function () {
 room.onPlayerChat = function (player, message) {
   console.log(player, `message: "${message}"`);
   if (message.toLowerCase().startsWith("!reset")) {
-    room.setDiscProperties(0, {
-      x: 0,
-      y: 0,
-    });
+    setTimeout(() => {
+      room.setDiscProperties(0, {
+        x: 0,
+        y: 0,
+      });
+    }, 1000);
   }
   if (message.toLowerCase().startsWith("!power")) {
     const [_, teamIdString, powerString] = message.split(",");
