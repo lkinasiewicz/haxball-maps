@@ -117,3 +117,6 @@ room.onPlayerJoin = function (player) {
   console.log(player);
   _nextTeam = _nextTeam === TEAM.RED ? TEAM.BLUE : TEAM.RED;
 };
+// expose hbRomm globally to allow control from headless server console
+// @ts-ignore
+window.hbRoom = room;
