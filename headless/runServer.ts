@@ -1,12 +1,17 @@
 import puppeteer from "puppeteer";
 import { buildSync } from "esbuild";
 
+const token = process.argv[2];
+
 const compiledBot = buildSync({
   entryPoints: ["src/index.ts"],
   bundle: true,
   platform: "browser",
   format: "iife",
   write: false,
+  define: {
+    'process.env.HEADLESS_TOKEN': token ? `"${token}"` : ''
+  }
 }).outputFiles[0].text;
 
 const browser = await puppeteer.launch({
